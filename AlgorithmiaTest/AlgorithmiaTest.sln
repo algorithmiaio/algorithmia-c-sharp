@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmiaTest", "AlgorithmiaTest\AlgorithmiaTest.csproj", "{554A200F-1B08-40C1-9821-5CF6CD4117AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithmia", "..\AlgorithmiaLibrary\Algorithmia\Algorithmia.csproj", "{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{554A200F-1B08-40C1-9821-5CF6CD4117AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{554A200F-1B08-40C1-9821-5CF6CD4117AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{554A200F-1B08-40C1-9821-5CF6CD4117AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{554A200F-1B08-40C1-9821-5CF6CD4117AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
