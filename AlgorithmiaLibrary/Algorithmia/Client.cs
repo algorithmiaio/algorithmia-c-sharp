@@ -108,14 +108,27 @@ namespace Algorithmia
 			return synchronousHttpCall(HttpMethod.Head, url, null, null, null).status;
 		}
 
-		public HttpResponseAndData getHelper(String url)
+		public HttpResponseAndData getHelper(String url, Dictionary<String, String> queryParameters=null)
 		{
-			return synchronousHttpCall(HttpMethod.Get, url, null, null, null);
+			return synchronousHttpCall(HttpMethod.Get, url, queryParameters, null, null);
 		}
 
 		public HttpResponseAndData deleteHelper(String url, Dictionary<String, String> queryParameters=null)
 		{
 			return synchronousHttpCall(HttpMethod.Delete, url, queryParameters, null, null);
+		}
+
+		public HttpResponseAndData patchJsonHelper(String url, Object inputObject)
+		{
+			using (var stream = new MemoryStream())
+			{
+				DataContractJsonSerializer ser = (inputObject == null) ?
+					new DataContractJsonSerializer(typeof(Object)) : new DataContractJsonSerializer(inputObject.GetType());
+				ser.WriteObject(stream, inputObject);
+				stream.Flush();
+				stream.Position = 0;
+				return synchronousHttpCall(new HttpMethod("PATCH"), url, null, new StreamContent(stream), "application/json");
+			}
 		}
 
 		public HttpResponseAndData putHelper(String url, Byte[] data)
@@ -131,9 +144,6 @@ namespace Algorithmia
 		public HttpResponseAndData postJsonHelper(String url, Object inputObject, Dictionary<String, String> queryParameters)
 		{
 			Boolean isByteArray = inputObject != null && inputObject.GetType().Name.ToLower() == "byte[]";
-			DataContractJsonSerializer ser = (inputObject == null) ? 
-				new DataContractJsonSerializer(typeof(Object)) : 
-				(isByteArray) ? null : new DataContractJsonSerializer(inputObject.GetType());
 
 			HttpResponseAndData result = null;
 			if (isByteArray)
@@ -144,6 +154,8 @@ namespace Algorithmia
 			{
 				using (var stream = new MemoryStream())
 				{
+					DataContractJsonSerializer ser = (inputObject == null) ?
+						new DataContractJsonSerializer(typeof(Object)) : new DataContractJsonSerializer(inputObject.GetType());
 					ser.WriteObject(stream, inputObject);
 					stream.Flush();
 					stream.Position = 0;

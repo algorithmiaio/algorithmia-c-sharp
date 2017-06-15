@@ -44,7 +44,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Algorithm.cs" />
     <Compile Include="AlgorithmOutputType.cs" />
-    <Compile Include="DataApiAcl.cs" />
+    <Compile Include="ReadDataAcl.cs" />
     <Compile Include="DataDirectory.cs" />
     <Compile Include="DataUtilities.cs" />
     <Compile Include="DataFile.cs" />

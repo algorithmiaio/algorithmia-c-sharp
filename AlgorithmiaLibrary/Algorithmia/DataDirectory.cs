@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Algorithmia
 {
@@ -21,7 +22,6 @@ namespace Algorithmia
 			parent = everythingToLastSlashReplacementRegex.Match(this.path).Groups[1].Value;
 		}
 
-
 		private static Regex everythingToLastSlashReplacementRegex = new Regex("^(.*)/");
 		public String getName()
 		{
@@ -33,10 +33,11 @@ namespace Algorithmia
 			return client.headHelper(url) == System.Net.HttpStatusCode.OK;
 		}
 
-		public DataDirectory create()
+		public DataDirectory create(ReadDataAcl acl=null)
 		{
+			List<String> aclList = (acl == null) ? null : acl.getAclStrings();
 			HttpResponseAndData resAndData = client.postJsonHelper(
-				DataUtilities.getDataUrl(parent), new CreateDataDirectory(name), null);
+				DataUtilities.getDataUrl(parent), new CreateDataDirectory(name, aclList), null);
 			Client.checkResult(resAndData, "Error creating data directory", true);
 			return this;
 		}
@@ -58,20 +59,67 @@ namespace Algorithmia
 		{
 			return new DataDirectory(client, path + "/" + child);
 		}
+
+		public DataDirectory updatePermissions(ReadDataAcl acl)
+		{
+			HttpResponseAndData resAndData = client.patchJsonHelper(url, new UpdateDataDirectory(acl.getAclStrings()));
+			Client.checkResult(resAndData, "Error setting data directory permissions", true);
+			return this;
+		}
+
+		public ReadDataAcl getPermissions()
+		{
+			HttpResponseAndData resAndData = client.getHelper(url, new Dictionary<String, String> { { "acl", "true" } });
+			Client.checkResult(resAndData, "Error getting data directory permissions", true);
+			DataResponse result = JsonConvert.DeserializeObject<DataResponse>(Client.DEFAULT_ENCODING.GetString(resAndData.result));
+
+			return ReadDataAcl.fromAclStrings(result.acl.read);
+		}
 	}
 
+
+	public class ReadAcl
+	{
+		public List<String> read;
+		public ReadAcl()
+		{
+		}
+
+		public ReadAcl(List<String> r)
+		{
+			read = r;
+		}
+	}
 	public class CreateDataDirectory
 	{
 		public String name;
+		public ReadAcl acl;
 
 		// This need to be here for serialization
 		public CreateDataDirectory()
 		{
 		}
 
-		public CreateDataDirectory(String n)
+		public CreateDataDirectory(String n, List<String> r)
 		{
 			name = n;
+			if (r != null)
+			{
+				acl = new ReadAcl(r);
+			}
+		}
+	}
+
+	public class UpdateDataDirectory
+	{
+		public ReadAcl acl;
+		public UpdateDataDirectory()
+		{
+		}
+
+		public UpdateDataDirectory(List<String> r)
+		{
+			acl = new ReadAcl(r);
 		}
 	}
 }

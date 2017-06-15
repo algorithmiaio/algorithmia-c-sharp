@@ -93,5 +93,50 @@ namespace AlgorithmiaTest
 			Assert.False(childDir.exists());
 			Assert.True(dd.exists());
 		}
+
+		private void checkCreationWithAcl(DataDirectory dd, ReadDataAcl acl)
+		{
+			dd.create(acl);
+			Assert.AreEqual(dd.getPermissions(), acl);
+			dd.delete();
+		}
+
+		[Test()]
+		public void directoryCreateWithACLandGet()
+		{
+			DataDirectory dd = client.dir("data://.my/C_sharp_directoryACLs");
+			if (dd.exists())
+			{
+				dd.delete(true);
+			}
+
+			dd.create();
+			Assert.AreEqual(dd.getPermissions(), ReadDataAcl.MY_ALGOS);
+			dd.delete();
+
+            checkCreationWithAcl(dd, ReadDataAcl.MY_ALGOS);
+			checkCreationWithAcl(dd, ReadDataAcl.PRIVATE);
+			checkCreationWithAcl(dd, ReadDataAcl.PUBLIC);
+		}
+
+		private void checkUpdateWithAcl(DataDirectory dd, ReadDataAcl acl)
+		{
+			dd.updatePermissions(acl);
+			Assert.AreEqual(dd.getPermissions(), acl);
+		}
+
+		[Test()]
+		public void directoryUpdateACLs()
+		{
+			DataDirectory dd = client.dir("data://.my/C_sharp_directoryUpdateACLs");
+			if (!dd.exists())
+			{
+				dd.create();
+			}
+
+			checkUpdateWithAcl(dd, ReadDataAcl.PRIVATE);
+			checkUpdateWithAcl(dd, ReadDataAcl.MY_ALGOS);
+			checkUpdateWithAcl(dd, ReadDataAcl.PUBLIC);
+		}
 	}
 }
