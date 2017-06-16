@@ -138,5 +138,6 @@ namespace AlgorithmiaTest
 			checkUpdateWithAcl(dd, ReadDataAcl.MY_ALGOS);
 			checkUpdateWithAcl(dd, ReadDataAcl.PUBLIC);
 		}
+
 	}
 }

@@ -27,43 +27,22 @@ namespace Algorithmia
 	public class AlgorithmResponse
 	{
 		// Only used in async responses
-		public string async;
-		public string request_id;
+		public readonly string async;
+		public readonly string request_id;
 
 		// Used in normal responses
-		public ResponseMetadata metadata;
-		public Object result;
-		public IDictionary<String, String> error;
-		public AlgorithmResponse()
-		{
-		}
+		public readonly ResponseMetadata metadata;
+		public readonly Object result;
+		public readonly IDictionary<String, String> error;
 
-		public override String ToString()
+		public AlgorithmResponse(string async, string request_id, ResponseMetadata metadata, Object result, IDictionary<String, String> error)
 		{
-			return "result: " + result + " - error - " + error + " - " + metadata.ToString();
-		}
+			this.async = async;
+			this.request_id = request_id;
 
-		public String getErrorMessage()
-		{
-			if (error == null || error.Count == 0)
-			{
-				return null;
-			}
-			String errorMessage = "";
-			if (error.ContainsKey("message"))
-			{
-				errorMessage = error["message"];
-			}
-
-			if (error.ContainsKey("stacktrace"))
-			{
-				if (errorMessage.Length > 0)
-				{
-					errorMessage += "\n";
-				}
-				errorMessage += "stacktrace: " + error["stacktrace"];
-			}
-			return errorMessage;
+			this.metadata = metadata;
+			this.result = result;
+			this.error = error;
 		}
 	}
 }

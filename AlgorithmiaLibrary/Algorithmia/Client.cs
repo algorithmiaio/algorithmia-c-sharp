@@ -96,7 +96,6 @@ namespace Algorithmia
 			Task<HttpResponseMessage> x = client.SendAsync(request);
 			x.Wait();
 			HttpResponseMessage result = x.Result;
-			//Console.Write(result);
 			Task<byte[]> bytes = result.Content.ReadAsByteArrayAsync();
 			bytes.Wait();
 

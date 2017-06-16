@@ -61,20 +61,20 @@ namespace Algorithmia
 			return "/v1/algo/" + path;
 		}
 
-		public AlgorithmResponse pipe(Object input)
+		public AlgorithmResponse pipe<T>(Object input)
 		{
 			HttpResponseAndData response = client.postJsonHelper(algoUrl, input, queryParameters);
 			Client.checkResult(response, "Algorithm call failed", false);
 
-			AlgorithmResponse result = null;
+			AlgorithmResponseInternal<T> result = null;
 			if (queryParameters["output"] == AlgorithmOutputType.RAW.getOutputType())
 			{
-				result = new AlgorithmResponse();
-				result.result = response.result;
+				result = new AlgorithmResponseInternal<T>();
+				result.byteResult = response.result;
 			}
 			else
 			{
-				result = JsonConvert.DeserializeObject<AlgorithmResponse>(Client.DEFAULT_ENCODING.GetString(response.result));
+				result = JsonConvert.DeserializeObject<AlgorithmResponseInternal<T>>(Client.DEFAULT_ENCODING.GetString(response.result));
 			}
 
 			if (result.error != null)
@@ -82,17 +82,72 @@ namespace Algorithmia
 				throw new AlgorithmException(result.getErrorMessage());
 			}
 
-			if (result.metadata != null && result.metadata.content_type == "binary")
-			{
-				result.result = Convert.FromBase64String((String)result.result);
-			}
-
 			if (result == null)
 			{
 				throw new AlgorithmiaException("Could not decode result from the API server");
 			}
 
-			return result;
+			return result.getAlgorithmResponse();
+		}
+
+		private class AlgorithmResponseInternal<T>
+		{
+			// Only used in async responses
+			public string async;
+			public string request_id;
+
+			// Used in normal responses
+			public ResponseMetadata metadata;
+			public T result;
+			public IDictionary<String, String> error;
+			public Byte[] byteResult;
+
+			public AlgorithmResponseInternal()
+			{
+			}
+
+			public AlgorithmResponse getAlgorithmResponse()
+			{
+				return new AlgorithmResponse(async, request_id, metadata, getResult(), error);
+			}
+
+			public Object getResult()
+			{
+				if (byteResult != null)
+				{
+					return byteResult;
+				}
+
+				return result;
+			}
+
+			public override String ToString()
+			{
+				return "result: " + result + " - error - " + error + " - " + metadata.ToString();
+			}
+
+			public String getErrorMessage()
+			{
+				if (error == null || error.Count == 0)
+				{
+					return null;
+				}
+				String errorMessage = "";
+				if (error.ContainsKey("message"))
+				{
+					errorMessage = error["message"];
+				}
+
+				if (error.ContainsKey("stacktrace"))
+				{
+					if (errorMessage.Length > 0)
+					{
+						errorMessage += "\n";
+					}
+					errorMessage += "stacktrace: " + error["stacktrace"];
+				}
+				return errorMessage;
+			}
 		}
 	}
 }
