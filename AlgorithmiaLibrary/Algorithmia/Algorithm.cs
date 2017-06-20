@@ -7,8 +7,8 @@ namespace Algorithmia
 {
 	public class Algorithm
 	{
-		public readonly Client client;
-		public readonly String algoUrl;
+		private readonly Client client;
+		private readonly String algoUrl;
 		private static Regex algoPrefixReplacementRegex = new Regex("^(algo://|/)");
 		private static Regex algoReferenceRegex = new Regex("^(\\w+/\\w+)$");
 
@@ -104,6 +104,12 @@ namespace Algorithmia
 
 			public AlgorithmResponseInternal()
 			{
+				async = null;
+				request_id = null;
+				metadata = null;
+				result = default(T);
+				error = null;
+				byteResult = null;
 			}
 
 			public AlgorithmResponse getAlgorithmResponse()

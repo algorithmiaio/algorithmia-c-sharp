@@ -38,7 +38,6 @@ namespace AlgorithmiaTest
 		{
 			Client client = new Client("key");
 			Algorithm algo = client.algo("algo://test/algo");
-			Assert.AreSame(algo.client, client);
 		}
 
 		[Test()]
@@ -46,7 +45,6 @@ namespace AlgorithmiaTest
 		{
 			Client client = new Client("key");
 			DataFile file = client.file("test/path.txt");
-			Assert.AreSame(file.client, client);
 		}
 
 		[Test()]

@@ -1,11 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using Algorithmia;
-using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Runtime.Serialization;
 
 namespace AlgorithmiaTest
 {

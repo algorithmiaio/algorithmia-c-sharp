@@ -8,7 +8,7 @@ namespace Algorithmia
 {
 	public class DataFile
 	{
-		public readonly Client client;
+		private readonly Client client;
 		private readonly String url;
 		private readonly String path;
 		private DateTime lastModified;
@@ -116,11 +116,6 @@ namespace Algorithmia
 			forWrite.Close();
 
 			return File.OpenRead(fileName);
-		}
-
-		private void setAttributes()
-		{
-			// TODO: fill this in
 		}
 	}
 }

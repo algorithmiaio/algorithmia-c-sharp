@@ -26,15 +26,6 @@ namespace AlgorithmiaTest
 		}
 
 		[Test()]
-		public void checkAlgorithmPath()
-		{
-			Client client = new Client("key");
-			Assert.AreEqual(client.algo("a/b").algoUrl, "/v1/algo/a/b");
-			Assert.AreEqual(client.algo("/c/d").algoUrl, "/v1/algo/c/d");
-			Assert.AreEqual(client.algo("algo://e/f").algoUrl, "/v1/algo/e/f");
-		}
-
-		[Test()]
 		public void checkAlgorithmResult()
 		{ 
 			Client client = new Client(ALGORITHMIA_API_KEY);

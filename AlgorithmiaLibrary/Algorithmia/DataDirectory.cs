@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace Algorithmia
 {
@@ -34,7 +35,7 @@ namespace Algorithmia
 			return client.headHelper(url) == System.Net.HttpStatusCode.OK;
 		}
 
-		public DataDirectory create(ReadDataAcl acl=null)
+		public DataDirectory create(ReadDataAcl acl = null)
 		{
 			List<String> aclList = (acl == null) ? null : acl.getAclStrings();
 			HttpResponseAndData resAndData = client.postJsonHelper(
@@ -120,7 +121,7 @@ namespace Algorithmia
 						foreach (DataDirectoryFileElement e in result.files)
 						{
 							DataFile df = parent.file(e.filename);
-							df.setAttributes(e.size, DateTime.ParseExact(e.last_modified, "yyyy-MM-ddThh:mm:ss.000Z", CultureInfo.InvariantCulture));
+							df.setAttributes(e.size, DateTime.ParseExact(e.last_modified, "yyyy-MM-ddTHH:mm:ss.000Z", CultureInfo.InvariantCulture));
 							yield return df;
 						}
 					}
@@ -134,12 +135,16 @@ namespace Algorithmia
 				} while (marker != null);
 			}
 		}
+
+
 	}
 
-
-	public class ReadAcl
+	[DataContract()]
+	class ReadAcl
 	{
+		[DataMember()]
 		public List<String> read;
+
 		public ReadAcl()
 		{
 		}
@@ -149,9 +154,14 @@ namespace Algorithmia
 			read = r;
 		}
 	}
-	public class CreateDataDirectory
+
+	[DataContract()]
+	class CreateDataDirectory
 	{
+		[DataMember()]
 		public String name;
+
+		[DataMember()]
 		public ReadAcl acl;
 
 		// This need to be here for serialization
@@ -169,9 +179,12 @@ namespace Algorithmia
 		}
 	}
 
-	public class UpdateDataDirectory
+	[DataContract()]
+	class UpdateDataDirectory
 	{
+		[DataMember()]
 		public ReadAcl acl;
+
 		public UpdateDataDirectory()
 		{
 		}
@@ -182,23 +195,55 @@ namespace Algorithmia
 		}
 	}
 
-	public class DataDirectoryFileElement
+	[DataContract()]
+	class DataDirectoryFileElement
 	{
+		[DataMember()]
 		public String filename;
+
+		[DataMember()]
 		public String last_modified;
+
+		[DataMember()]
 		public long size;
 
+		public DataDirectoryFileElement()
+		{
+			filename = null;
+			last_modified = null;
+			size = -1;
+		}
 	}
 
-	public class DataDirectoryDirectoryElement
+	[DataContract()]
+	class DataDirectoryDirectoryElement
 	{
+		[DataMember()]
 		public String name;
+
+		public DataDirectoryDirectoryElement()
+		{
+			name = null;
+		}
 	}
 
-	public class DataDirectoryContents
+	[DataContract()]
+	class DataDirectoryContents
 	{
+		[DataMember()]
 		public List<DataDirectoryFileElement> files;
+
+		[DataMember()]
 		public List<DataDirectoryDirectoryElement> folders;
+
+		[DataMember()]
 		public String marker;
+
+		public DataDirectoryContents()
+		{
+			files = null;
+			folders = null;
+			marker = null;
+		}
 	}
 }
