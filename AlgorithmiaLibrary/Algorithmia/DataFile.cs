@@ -11,8 +11,8 @@ namespace Algorithmia
 		public readonly Client client;
 		private readonly String url;
 		private readonly String path;
-		private readonly DateTime lastModified;
-		private readonly long size;
+		private DateTime lastModified;
+		private long size;
 
 		private static Regex upToLastSlash = new Regex("^.*/");
 
@@ -24,6 +24,22 @@ namespace Algorithmia
 
 			lastModified = new DateTime(0);
 			size = -1;
+		}
+
+		public void setAttributes(long s, DateTime modTime)
+		{
+			size = s;
+			lastModified = modTime;
+		}
+
+		public long getSize()
+		{
+			return size;
+		}
+
+		public DateTime getlastModifiedTime()
+		{
+			return lastModified;
 		}
 
 		public String getName()

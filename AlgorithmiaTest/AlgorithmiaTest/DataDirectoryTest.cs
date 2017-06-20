@@ -139,5 +139,112 @@ namespace AlgorithmiaTest
 			checkUpdateWithAcl(dd, ReadDataAcl.PUBLIC);
 		}
 
+		[Test()]
+		public void dirListFilesSmall()
+		{
+			DataDirectory dd = client.dir("data://.my/C_sharp_dirListFilesSmall");
+			if (dd.exists())
+			{
+				dd.delete(true);
+			}
+
+			dd.create();
+
+			dd.file("one").put("1");
+			byte[] bytes = { 0, 1, 2, 3, 4 };
+			dd.file("five").put(bytes);
+
+			Boolean seen1 = false;
+			Boolean seen5 = false;
+			foreach (DataFile df in dd.files())
+			{
+				// The time now and the current time must differ by at most 2 minutes
+				Assert.Greater(DateTime.Now.AddMinutes(2), df.getlastModifiedTime());
+				Assert.Greater(df.getlastModifiedTime().AddMinutes(2), DateTime.Now);
+
+				if (df.getName().Equals("one"))
+				{
+					seen1 = true;
+					Assert.AreEqual(df.getSize(), 1);
+					Assert.AreEqual("1", df.getString());
+				}
+				else if (df.getName().Equals("five"))
+				{
+					seen5 = true;
+					Assert.AreEqual(df.getSize(), 5);
+					Assert.AreEqual(bytes, df.getBytes());
+				}
+			}
+
+			Assert.True(seen1);
+			Assert.True(seen5);
+		}
+
+		[Test()]
+		public void dirListDirs()
+		{
+			DataDirectory dd = client.dir("data://.my/");
+			DataDirectory d1 = dd.dir("C_sharp_dirListDirectories_1");
+			DataDirectory d2 = dd.dir("C_sharp_dirListDirectories_2");
+
+			if (!d1.exists())
+			{
+				d1.create();
+			}
+
+			if (!d2.exists())
+			{
+				d2.create();
+			}
+
+
+			Boolean seen1 = false;
+			Boolean seen2 = false;
+
+			foreach (DataDirectory dcur in dd.dirs())
+			{
+				if (dcur.getName().Equals("C_sharp_dirListDirectories_1"))
+				{
+					seen1 = true;
+				}
+				else if (dcur.getName().Equals("C_sharp_dirListDirectories_2"))
+				{
+					seen2 = true;
+				}
+			}
+
+			Assert.True(seen1);
+			Assert.True(seen2);
+		}
+
+		[Test()]
+		public void dirListFilesLarge()
+		{
+			DataDirectory dd = client.dir("data://.my/C_sharp_dirListFilesLarge");
+			const int NUM_FILES = 2200;
+
+			if (!dd.exists())
+			{
+				dd.create();
+				for (int i = 0; i < NUM_FILES; i++)
+				{
+					dd.file(i + ".txt").put(i.ToString());
+				}
+			}
+
+			Boolean[] seen = new Boolean[NUM_FILES];
+			foreach (DataFile df in dd.files())
+			{
+				String index = df.getName().Replace(".txt", "");
+				Assert.AreEqual(index.Length, df.getSize());
+				Assert.False(seen[long.Parse(index)]);
+				seen[long.Parse(index)] = true;
+			}
+
+			for (int i = 0; i < NUM_FILES; i++)
+			{
+				Assert.True(seen[i]);
+			}
+		}
 	}
 }

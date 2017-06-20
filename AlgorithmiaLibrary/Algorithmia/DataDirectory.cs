@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Globalization;
 using Newtonsoft.Json;
 
 namespace Algorithmia
@@ -50,14 +51,19 @@ namespace Algorithmia
 			return this;
 		}
 
+		private String makeChildUrl(String child)
+		{
+			return path + "/" + child;
+		}
+
 		public DataFile file(String child)
 		{
-			return new DataFile(client, path + "/" + child);
+			return new DataFile(client, makeChildUrl(child));
 		}
 
 		public DataDirectory dir(String child)
 		{
-			return new DataDirectory(client, path + "/" + child);
+			return new DataDirectory(client, makeChildUrl(child));
 		}
 
 		public DataDirectory updatePermissions(ReadDataAcl acl)
@@ -74,6 +80,59 @@ namespace Algorithmia
 			DataResponse result = JsonConvert.DeserializeObject<DataResponse>(Client.DEFAULT_ENCODING.GetString(resAndData.result));
 
 			return ReadDataAcl.fromAclStrings(result.acl.read);
+		}
+
+		public DataIterator files()
+		{
+			return new DataIterator(this, true);
+		}
+
+		public DataIterator dirs()
+		{
+			return new DataIterator(this, false);
+		}
+
+		public class DataIterator : System.Collections.IEnumerable
+		{
+			private DataDirectory parent;
+			private String marker;
+			private Boolean isFiles;
+
+			public DataIterator(DataDirectory p, Boolean i)
+			{
+				parent = p;
+				marker = null;
+				isFiles = i;
+			}
+
+			public System.Collections.IEnumerator GetEnumerator()
+			{
+				do
+				{
+					Dictionary<String, String> markerQueryParams = (marker == null) ? null : new Dictionary<String, String> { { "marker", marker } };
+					HttpResponseAndData resAndData = parent.client.getHelper(parent.url, markerQueryParams);
+					Client.checkResult(resAndData, "Error getting data directory's children", true);
+					DataDirectoryContents result = JsonConvert.DeserializeObject<DataDirectoryContents>(Client.DEFAULT_ENCODING.GetString(resAndData.result));
+
+					marker = result.marker;
+					if (isFiles)
+					{
+						foreach (DataDirectoryFileElement e in result.files)
+						{
+							DataFile df = parent.file(e.filename);
+							df.setAttributes(e.size, DateTime.ParseExact(e.last_modified, "yyyy-MM-ddThh:mm:ss.000Z", CultureInfo.InvariantCulture));
+							yield return df;
+						}
+					}
+					else
+					{
+						foreach (DataDirectoryDirectoryElement e in result.folders)
+						{
+							yield return parent.dir(e.name);
+						}
+					}
+				} while (marker != null);
+			}
 		}
 	}
 
@@ -121,5 +180,25 @@ namespace Algorithmia
 		{
 			acl = new ReadAcl(r);
 		}
+	}
+
+	public class DataDirectoryFileElement
+	{
+		public String filename;
+		public String last_modified;
+		public long size;
+
+	}
+
+	public class DataDirectoryDirectoryElement
+	{
+		public String name;
+	}
+
+	public class DataDirectoryContents
+	{
+		public List<DataDirectoryFileElement> files;
+		public List<DataDirectoryDirectoryElement> folders;
+		public String marker;
 	}
 }
