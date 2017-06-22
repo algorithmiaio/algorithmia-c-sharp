@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{554A200F-1B08-40C1-9821-5CF6CD4117AF}</ProjectGuid>
+    <ProjectGuid>{04C67C89-40B4-4614-B6C5-C35A1BE91655}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>AlgorithmiaTest</RootNamespace>
-    <AssemblyName>AlgorithmiaTest</AssemblyName>
+    <RootNamespace>Algorithmia</RootNamespace>
+    <AssemblyName>Algorithmia</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -17,34 +17,40 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientTest.cs" />
-    <Compile Include="AlgorithmTest.cs" />
-    <Compile Include="DataFileTest.cs" />
-    <Compile Include="DataDirectoryTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Algorithm.cs" />
+    <Compile Include="AlgorithmOutputType.cs" />
+    <Compile Include="AlgorithmResponse.cs" />
+    <Compile Include="AlgorithmiaException.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="DataDirectory.cs" />
+    <Compile Include="DataFile.cs" />
+    <Compile Include="DataResponse.cs" />
+    <Compile Include="DataUtilities.cs" />
+    <Compile Include="ReadDataAcl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Algorithmia\Algorithmia\Algorithmia.csproj">
-      <Project>{04C67C89-40B4-4614-B6C5-C35A1BE91655}</Project>
-      <Name>Algorithmia</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
