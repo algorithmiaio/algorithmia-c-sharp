@@ -1,48 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Algorithmia
 {
-	public class ResponseMetadata
-	{
-		public String content_type;
-		public double duration;
+    public class ResponseMetadata
+    {
+        public string content_type;
+        public double duration;
 
-		public ResponseMetadata()
-		{
-		}
+        public ResponseMetadata()
+        {
+        }
 
-		public ResponseMetadata(String ct, double d)
-		{
-			content_type = ct;
-			duration = d;
-		}
+        public ResponseMetadata(string ct, double d)
+        {
+            content_type = ct;
+            duration = d;
+        }
 
-		public override string ToString()
-		{
-			return content_type + " - " + duration.ToString();
-		}
-	}
+        public override string ToString()
+        {
+            return content_type + " - " + duration;
+        }
+    }
 
-	public class AlgorithmResponse
-	{
-		// Only used in async responses
-		public readonly string async;
-		public readonly string request_id;
+    public class AlgorithmResponse
+    {
+        // Only used in async responses
+        public readonly string async;
+        public readonly string request_id;
 
-		// Used in normal responses
-		public readonly ResponseMetadata metadata;
-		public readonly Object result;
-		public readonly IDictionary<String, String> error;
+        // Used in normal responses
+        public readonly ResponseMetadata metadata;
+        public readonly object result;
+        public readonly IDictionary<string, string> error;
 
-		public AlgorithmResponse(string async, string request_id, ResponseMetadata metadata, Object result, IDictionary<String, String> error)
-		{
-			this.async = async;
-			this.request_id = request_id;
+        public AlgorithmResponse(string async, string request_id, ResponseMetadata metadata, object result, IDictionary<string, string> error)
+        {
+            this.async = async;
+            this.request_id = request_id;
 
-			this.metadata = metadata;
-			this.result = result;
-			this.error = error;
-		}
-	}
+            this.metadata = metadata;
+            this.result = result;
+            this.error = error;
+        }
+    }
 }

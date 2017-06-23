@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Algorithmia
 {
-	class Acl
-	{
-		public List<String> read;
+    class Acl
+    {
+        public List<string> read;
 
-		public Acl()
-		{
-			read = null;
-		}
-	}
+        public Acl()
+        {
+            read = null;
+        }
+    }
 
-	class DataResponse
-	{
-		public IDictionary<String, String> error;
-		public Acl acl;
+    class DataResponse
+    {
+        public IDictionary<string, string> error;
+        public Acl acl;
 
-		public DataResponse()
-		{
-			error = null;
-			acl = null;
-		}
-	}
+        public DataResponse()
+        {
+            error = null;
+            acl = null;
+        }
+    }
 }

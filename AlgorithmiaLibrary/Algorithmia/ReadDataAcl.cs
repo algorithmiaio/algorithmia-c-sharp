@@ -1,51 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Algorithmia
 {
-	public class ReadDataAcl
-	{
-		private const String PUBLIC_PERMISSIONS = "user://*";
-		private const String MY_ALGOS_PERMISSIONS = "algo://.my/*";
+    public class ReadDataAcl
+    {
+        private const string PUBLIC_PERMISSIONS = "user://*";
+        private const string MY_ALGOS_PERMISSIONS = "algo://.my/*";
 
-		public static readonly ReadDataAcl PRIVATE = new ReadDataAcl(new List<String>());
-		public static readonly ReadDataAcl PUBLIC = new ReadDataAcl(new List<String>() { PUBLIC_PERMISSIONS });
-		public static readonly ReadDataAcl MY_ALGOS = new ReadDataAcl(new List<String>() { MY_ALGOS_PERMISSIONS });
+        public static readonly ReadDataAcl PRIVATE = new ReadDataAcl(new List<string>());
+        public static readonly ReadDataAcl PUBLIC = new ReadDataAcl(new List<string>() { PUBLIC_PERMISSIONS });
+        public static readonly ReadDataAcl MY_ALGOS = new ReadDataAcl(new List<string>() { MY_ALGOS_PERMISSIONS });
 
 
-		private readonly List<String> aclStrings;
+        private readonly List<string> aclStrings;
 
-		public ReadDataAcl(List<String> acls)
-		{
-			this.aclStrings = acls;
-		}
+        public ReadDataAcl(List<string> acls)
+        {
+            aclStrings = acls;
+        }
 
-		public List<String> getAclStrings()
-		{
-			return aclStrings;
-		}
+        public List<string> getAclStrings()
+        {
+            return aclStrings;
+        }
 
-		public static ReadDataAcl fromAclStrings(List<String> aclStrings)
-		{
-			if (aclStrings == null)
-			{
-				return null;
-			}
-			else if (aclStrings.Count == 0)
-			{
-				return PRIVATE;
-			}
-			else if (aclStrings[0].Equals(PUBLIC_PERMISSIONS))
-			{
-				return PUBLIC;
-			}
-			else if (aclStrings[0].Equals(MY_ALGOS_PERMISSIONS))
-			{
-				return MY_ALGOS;
-			}
+        public static ReadDataAcl fromAclStrings(List<string> aclStrings)
+        {
+            if (aclStrings == null)
+            {
+                return null;
+            }
+            if (aclStrings.Count == 0)
+            {
+                return PRIVATE;
+            }
+            if (aclStrings[0].Equals(PUBLIC_PERMISSIONS))
+            {
+                return PUBLIC;
+            }
+            if (aclStrings[0].Equals(MY_ALGOS_PERMISSIONS))
+            {
+                return MY_ALGOS;
+            }
 
-			return null;
-		}
-	}
+            return null;
+        }
+    }
 
 }

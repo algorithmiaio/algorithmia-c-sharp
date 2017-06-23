@@ -1,15 +1,14 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 
 // Information about this assembly is defined by the following attributes. 
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle("Algorithmia")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription(".NET Client for Algorithmia Algorithms and Data API Edit")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("${AuthorCopyright}")]
+[assembly: AssemblyCompany("Algorithmia, Inc.")]
+[assembly: AssemblyProduct("Algorithmia")]
+[assembly: AssemblyCopyright("Copyright © 2017 by Algorithmia Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
