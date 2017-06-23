@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Algorithmia</id>
-    <version>$version$</version>
+    <id>Algorithmia.Client</id>
+    <version>0.0.1</version>
     <title>.NET Client for Algorithmia Algorithms and Data API Edit</title>
     <authors>EdBlankenship</authors>
     <owners>EdBlankenship</owners>
