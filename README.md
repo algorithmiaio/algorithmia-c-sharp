@@ -1,7 +1,6 @@
 [![NuGet](https://img.shields.io/nuget/v/Algorithmia.Client.svg)](https://www.nuget.org/packages/Algorithmia.Client)
 
 # Algorithmia Client Library for .NET
-===================================
 
 Algorithmia is a hosted marketplace as well as an on-premises enterprise solution that allows developers to tap into a catalog of over 3,500 algorithmic microservices.  Developers leverage one of the existing algorithms, micrososervices, or functions or write their own.
 
