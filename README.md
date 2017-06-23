@@ -29,6 +29,10 @@ If you need help installing or using the library, please contact Algorithmia Sup
 
 If you have found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
 
-#### [Getting Started with Algorithmia][https://algorithmia.com/developers/getting-started/]
-#### [Algorithmia Recipes][https://algorithmia.com/developers/tutorials/recipes]
-#### [Algorithmia Developer Center and Documentation][https://algorithmia.com/developers/]
+#### [Getting Started with Algorithmia][0]
+#### [Algorithmia Recipes][1]
+#### [Algorithmia Developer Center and Documentation][2]
+
+[0]: https://algorithmia.com/developers/getting-started/
+[1]: https://algorithmia.com/developers/tutorials/recipes
+[2]: https://algorithmia.com/developers/
