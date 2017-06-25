@@ -3,11 +3,12 @@ using System.Text.RegularExpressions;
 
 namespace Algorithmia
 {
-    public static class DataUtilities
+    internal static class DataUtilities
     {
         private static Regex dataPrefixReplacementRegex = new Regex("^(data://|/)");
         private static Regex endsWithSlashRegex = new Regex("/$");
-        public static string getDataPath(string input, bool isFile)
+
+        internal static string getDataPath(string input, bool isFile)
         {
             var path = dataPrefixReplacementRegex.Replace(input, "");
 
@@ -30,7 +31,7 @@ namespace Algorithmia
             return path;
         }
 
-        public static string getDataUrl(string validPath)
+        internal static string getDataUrl(string validPath)
         {
             return "/v1/data/" + validPath;
         }

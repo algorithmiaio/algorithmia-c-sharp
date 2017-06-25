@@ -9,6 +9,7 @@ namespace Algorithmia
         private readonly Client client;
         private readonly string url;
         private readonly string path;
+        private readonly string name;
         private DateTime lastModified;
         private long size;
 
@@ -19,7 +20,7 @@ namespace Algorithmia
             client = c;
             path = DataUtilities.getDataPath(dataUrl, true);
             url = DataUtilities.getDataUrl(path);
-
+            name = upToLastSlash.Replace(url, "");
             lastModified = new DateTime(0);
             size = -1;
         }
@@ -42,8 +43,7 @@ namespace Algorithmia
 
         public string getName()
         {
-            // TODO: make this a variable instead
-            return upToLastSlash.Replace(url, "");
+            return name;
         }
 
         public bool exists()

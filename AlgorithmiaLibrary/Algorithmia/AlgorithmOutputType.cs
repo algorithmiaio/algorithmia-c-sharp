@@ -12,7 +12,7 @@
         string getOutputType();
     }
 
-    public class RawOutputType : OutputType
+    internal class RawOutputType : OutputType
     {
         public string getOutputType()
         {
@@ -20,7 +20,7 @@
         }
     }
 
-    public class VoidOutputType : OutputType
+    internal class VoidOutputType : OutputType
     {
         public string getOutputType()
         {
@@ -28,7 +28,7 @@
         }
     }
 
-    public class DefaultOutputType : OutputType
+    internal class DefaultOutputType : OutputType
     {
         public string getOutputType()
         {

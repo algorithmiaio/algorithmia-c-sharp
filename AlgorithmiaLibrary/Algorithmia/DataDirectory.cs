@@ -99,7 +99,7 @@ namespace Algorithmia
             private string marker;
             private bool isFiles;
 
-            public DataIterator(DataDirectory p, bool i)
+            internal DataIterator(DataDirectory p, bool i)
             {
                 parent = p;
                 marker = null;

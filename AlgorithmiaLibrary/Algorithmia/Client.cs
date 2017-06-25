@@ -9,7 +9,7 @@ using System.Net.Http;
 
 namespace Algorithmia
 {
-    public class HttpResponseAndData
+    internal class HttpResponseAndData
     {
         public readonly HttpStatusCode status;
         public readonly byte[] result;
@@ -97,22 +97,22 @@ namespace Algorithmia
             return new HttpResponseAndData(result.StatusCode, bytes.Result);
         }
 
-        public HttpStatusCode headHelper(string url)
+        internal HttpStatusCode headHelper(string url)
         {
             return synchronousHttpCall(HttpMethod.Head, url, null, null, null).status;
         }
 
-        public HttpResponseAndData getHelper(string url, Dictionary<string, string> queryParameters = null)
+        internal HttpResponseAndData getHelper(string url, Dictionary<string, string> queryParameters = null)
         {
             return synchronousHttpCall(HttpMethod.Get, url, queryParameters, null, null);
         }
 
-        public HttpResponseAndData deleteHelper(string url, Dictionary<string, string> queryParameters = null)
+        internal HttpResponseAndData deleteHelper(string url, Dictionary<string, string> queryParameters = null)
         {
             return synchronousHttpCall(HttpMethod.Delete, url, queryParameters, null, null);
         }
 
-        public HttpResponseAndData patchJsonHelper(string url, object inputObject)
+        internal HttpResponseAndData patchJsonHelper(string url, object inputObject)
         {
             using (var stream = new MemoryStream())
             {
@@ -125,17 +125,17 @@ namespace Algorithmia
             }
         }
 
-        public HttpResponseAndData putHelper(string url, byte[] data)
+        internal HttpResponseAndData putHelper(string url, byte[] data)
         {
             return synchronousHttpCall(HttpMethod.Put, url, null, new ByteArrayContent(data), null);
         }
 
-        public HttpResponseAndData putHelper(string url, Stream stream)
+        internal HttpResponseAndData putHelper(string url, Stream stream)
         {
             return synchronousHttpCall(HttpMethod.Put, url, null, new StreamContent(stream), null);
         }
 
-        public HttpResponseAndData postJsonHelper(string url, object inputObject, Dictionary<string, string> queryParameters)
+        internal HttpResponseAndData postJsonHelper(string url, object inputObject, Dictionary<string, string> queryParameters)
         {
             var isByteArray = inputObject != null && inputObject.GetType().Name.ToLower() == "byte[]";
 
@@ -159,7 +159,7 @@ namespace Algorithmia
             return result;
         }
 
-        public static bool checkResult(HttpResponseAndData resAndData, string errorMessage, bool isData)
+        internal static bool checkResult(HttpResponseAndData resAndData, string errorMessage, bool isData)
         {
             if (resAndData.status == HttpStatusCode.OK)
             {
