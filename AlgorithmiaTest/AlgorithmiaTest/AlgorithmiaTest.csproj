@@ -41,8 +41,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Algorithmia\Algorithmia\Algorithmia.csproj">
-      <Project>{04C67C89-40B4-4614-B6C5-C35A1BE91655}</Project>
+    <ProjectReference Include="..\..\AlgorithmiaLibrary\Algorithmia\Algorithmia.csproj">
+      <Project>{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}</Project>
       <Name>Algorithmia</Name>
     </ProjectReference>
   </ItemGroup>
