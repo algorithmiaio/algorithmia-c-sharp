@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 
 namespace Algorithmia
 {
+    /// <summary>
+    /// Represents an Algorithmia algorithm that can API calls on a user's behalf.
+    /// </summary>
     public class Algorithm
     {
         private readonly Client client;
@@ -14,6 +17,12 @@ namespace Algorithmia
 
         private Dictionary<string, string> queryParameters;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Algorithmia.Algorithm"/> class.
+        /// This normally should not be called. Instead use the client's <c>algo</c> method.
+        /// </summary>
+        /// <param name="client">Client that is configured to talk to the correct Algorithmia API endpoint</param>
+        /// <param name="algoRef">The algorithm unique identifier: [author]/[algorithm name]/[optional version]</param>
         public Algorithm(Client client, string algoRef)
         {
             this.client = client;
@@ -25,6 +34,14 @@ namespace Algorithmia
             queryParameters["output"] = AlgorithmOutputType.DEFAULT.getOutputType();
         }
 
+        /// <summary>
+        /// Sets the options for the next algorithm call.
+        /// </summary>
+        /// <returns>A pointer to <c>this</c>.</returns>
+        /// <param name="timeout">The number of seconds we will allow the algorithm to run. Default is 300 seconds (5 minutes)</param>
+        /// <param name="stdout">If we want to get the standard output of the algorithm calls. You can only get output for your own algorithms</param>
+        /// <param name="output">Type of output. Default is the normal response parsing. Raw gets the byte array. Void is for asynchronous calls </param>
+        /// <param name="options">Dictionary for options to send to the server. Should normally be null.</param>
         public Algorithm setOptions(int timeout = 300, bool stdout = false, OutputType output = null, Dictionary<string, string> options = null)
         {
             if (output == null)
@@ -61,6 +78,12 @@ namespace Algorithmia
             return "/v1/algo/" + path;
         }
 
+        /// <summary>
+        /// Call the algorithm with the <c>input</c>.
+        /// </summary>
+        /// <returns>An AlgorithmResponse with the result of the call.</returns>
+        /// <param name="input">The input which which will be json serialized and sent as the input to the algorithm call.</param>
+        /// <typeparam name="T">The type of the <c>result</c> object in the <c>AlgorithmResponse</c>. If the output is Raw, this is ignored and a byte[] array is used instead.</typeparam>
         public AlgorithmResponse pipe<T>(object input)
         {
             var response = client.postJsonHelper(algoUrl, input, queryParameters);
