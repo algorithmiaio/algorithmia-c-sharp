@@ -2,39 +2,66 @@
 
 namespace Algorithmia
 {
+    /// <summary>
+    /// Response metadata for default (the standard) algorithm requests.
+    /// </summary>
     public class ResponseMetadata
     {
+        /// <summary>
+        /// The content type of the result.
+        /// </summary>
         public string content_type;
+
+
+        /// <summary>
+        /// The execution duration.
+        /// </summary>
         public double duration;
 
-        public ResponseMetadata()
+
+        internal ResponseMetadata()
         {
         }
 
-        public ResponseMetadata(string ct, double d)
+        internal ResponseMetadata(string ct, double d)
         {
             content_type = ct;
             duration = d;
         }
-
-        public override string ToString()
-        {
-            return content_type + " - " + duration;
-        }
     }
 
+    /// <summary>
+    /// Algorithm response object.
+    /// </summary>
     public class AlgorithmResponse
     {
-        // Only used in async responses
+        /// <summary>
+        /// Async type used when making the call. Only used in asynchronous calls.
+        /// </summary>
         public readonly string async;
+
+        /// <summary>
+        /// The request identifier. Only used in asynchronous calls.
+        /// </summary>
         public readonly string request_id;
 
-        // Used in normal responses
+        /// <summary>
+        /// Metadata for the request. Only used in synchronous calls.
+        /// </summary>
         public readonly ResponseMetadata metadata;
+
+        /// <summary>
+        /// The result cast to object. If this was called with <c>AlgorithmOutputType.RAW</c> this is a byte array.
+        /// Otherwise it is the type passed into the <c>pipe</c> method that created the object. Only used in synchronous calls.
+        /// </summary>
         public readonly object result;
+
+        /// <summary>
+        /// If this algorithm call failed, this holds the error messages. Only used in synchronous calls.
+        /// </summary>
         public readonly IDictionary<string, string> error;
 
-        public AlgorithmResponse(string async, string request_id, ResponseMetadata metadata, object result, IDictionary<string, string> error)
+        internal AlgorithmResponse(string async, string request_id, ResponseMetadata metadata, object result, IDictionary<string, string> error)
         {
             this.async = async;
             this.request_id = request_id;
