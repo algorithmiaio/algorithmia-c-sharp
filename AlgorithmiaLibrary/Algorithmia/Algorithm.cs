@@ -31,7 +31,7 @@ namespace Algorithmia
             queryParameters = new Dictionary<string, string>();
             queryParameters["timeout"] = 300.ToString();
             queryParameters["stdout"] = false.ToString();
-            queryParameters["output"] = AlgorithmOutputType.DEFAULT.getOutputType();
+            queryParameters["output"] = AlgorithmOutputTypes.DEFAULT.getOutputType();
         }
 
         /// <summary>
@@ -40,20 +40,33 @@ namespace Algorithmia
         /// <returns>A pointer to <c>this</c>.</returns>
         /// <param name="timeout">The number of seconds we will allow the algorithm to run. Default is 300 seconds (5 minutes)</param>
         /// <param name="stdout">If we want to get the standard output of the algorithm calls. You can only get output for your own algorithms</param>
-        /// <param name="output">Type of output. Default is the normal response parsing. Raw gets the byte array. Void is for asynchronous calls </param>
+        /// <param name="outputType">Type of output. Default is the normal response parsing. Raw gets the byte array. Void is for asynchronous calls </param>
         /// <param name="options">Dictionary for options to send to the server. Should normally be null.</param>
-        public Algorithm setOptions(int timeout = 300, bool stdout = false, OutputType output = null, Dictionary<string, string> options = null)
+        public Algorithm setOptions(int timeout = 300, bool stdout = false, AlgorithmOutputType outputType = AlgorithmOutputType.DEFAULT, Dictionary<string, string> options = null)
         {
-            if (output == null)
-            {
-                output = AlgorithmOutputType.DEFAULT;
-            }
-
             var copy = (options == null) ? new Dictionary<string, string>() : new Dictionary<string, string>(options);
 
             copy["timeout"] = timeout.ToString();
             copy["stdout"] = stdout.ToString();
-            copy["output"] = output.getOutputType();
+
+            switch (outputType)
+            {
+                case AlgorithmOutputType.DEFAULT:
+                    {
+                        copy["output"] = AlgorithmOutputTypes.DEFAULT.getOutputType();
+                        break;
+                    }
+                case AlgorithmOutputType.RAW:
+                    {
+                        copy["output"] = AlgorithmOutputTypes.RAW.getOutputType();
+                        break;
+                    }
+                case AlgorithmOutputType.VOID:
+                    {
+                        copy["output"] = AlgorithmOutputTypes.VOID.getOutputType();
+                        break;
+                    }
+            }
 
             queryParameters = copy;
 
@@ -90,7 +103,7 @@ namespace Algorithmia
             Client.checkResult(response, "Algorithm call failed", false);
 
             AlgorithmResponseInternal<T> result = null;
-            if (queryParameters["output"] == AlgorithmOutputType.RAW.getOutputType())
+            if (queryParameters["output"] == AlgorithmOutputTypes.RAW.getOutputType())
             {
                 result = new AlgorithmResponseInternal<T>();
                 result.byteResult = response.result;

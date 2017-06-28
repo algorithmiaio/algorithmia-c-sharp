@@ -1,18 +1,39 @@
 ﻿namespace Algorithmia
 {
-    public static class AlgorithmOutputType
+    /// <summary>
+    /// The valid algorithm output types.
+    /// </summary>
+    public enum AlgorithmOutputType
     {
-        public static readonly OutputType RAW = new RawOutputType();
-        public static readonly OutputType VOID = new VoidOutputType();
-        public static readonly OutputType DEFAULT = new DefaultOutputType();
+        /// <summary>
+        /// The default output type. Deserializes the response as a json object with metadata.
+        /// </summary>
+        DEFAULT,
+
+        /// <summary>
+        /// The raw output type. Deserializes the response as a byte array without the metadata.
+        /// </summary>
+        RAW,
+
+        /// <summary>
+        /// The void output type. This makes the request in an asynchronous manner.
+        /// </summary>
+        VOID
+    };
+
+    internal static class AlgorithmOutputTypes
+    {
+        public static readonly OutputTypeInterface RAW = new RawOutputType();
+        public static readonly OutputTypeInterface VOID = new VoidOutputType();
+        public static readonly OutputTypeInterface DEFAULT = new DefaultOutputType();
     }
 
-    public interface OutputType
+    internal interface OutputTypeInterface
     {
         string getOutputType();
     }
 
-    internal class RawOutputType : OutputType
+    internal class RawOutputType : OutputTypeInterface
     {
         public string getOutputType()
         {
@@ -20,7 +41,7 @@
         }
     }
 
-    internal class VoidOutputType : OutputType
+    internal class VoidOutputType : OutputTypeInterface
     {
         public string getOutputType()
         {
@@ -28,7 +49,7 @@
         }
     }
 
-    internal class DefaultOutputType : OutputType
+    internal class DefaultOutputType : OutputTypeInterface
     {
         public string getOutputType()
         {
