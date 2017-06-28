@@ -20,29 +20,60 @@ namespace Algorithmia
         }
     }
 
+    /// <summary>
+    /// The Algorithmia Client which is used to create Algorithm, DataFile, and DataDirectory objects.
+    /// This class contains a majority of the REST calls we use to interact with the Algorithmia platform.
+    /// </summary>
     public class Client
     {
+        /// <summary>
+        /// The default encoding.
+        /// </summary>
         public static readonly System.Text.Encoding DEFAULT_ENCODING = System.Text.Encoding.UTF8;
 
         private readonly string apiKey;
+
+        /// <summary>
+        /// The API address. Defaults to "https://api.algorithmia.com"
+        /// </summary>
         public readonly string apiAddress;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Algorithmia.Client"/> class.
+        /// </summary>
+        /// <param name="key">The API key for the user calling the algorithm.</param>
+        /// <param name="address">Optional API address. When it's not specified, we use the public marketplace endpoint.</param>
         public Client(string key, string address = null)
         {
             apiKey = key;
             apiAddress = getApiAddress(address);
         }
 
+        /// <summary>
+        /// Creates the Algorithm object given the reference to an algorithm.
+        /// </summary>
+        /// <returns>The Algorithm object.</returns>
+        /// <param name="algoRef">Algorithm reference which has the format: [author name]/[algorithm name]/[optional version]</param>
         public Algorithm algo(string algoRef)
         {
             return new Algorithm(this, algoRef);
         }
 
+        /// <summary>
+        /// Creates a DataFile object given the path to the file.
+        /// </summary>
+        /// <returns>The DataFile object.</returns>
+        /// <param name="dataUrl">Path to the data file.</param>
         public DataFile file(string dataUrl)
         {
             return new DataFile(this, dataUrl);
         }
 
+        /// <summary>
+        /// Creates a DataDirectory object given the path to the directory.
+        /// </summary>
+        /// <returns>The DataDirectory object.</returns>
+        /// <param name="path">Path for the directory.</param>
         public DataDirectory dir(string path)
         {
             return new DataDirectory(this, path);
