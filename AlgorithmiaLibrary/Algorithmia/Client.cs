@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using System.IO;
-using System.Web;
 using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -97,12 +96,18 @@ namespace Algorithmia
 
             if (queryParameters != null && queryParameters.Count > 0)
             {
-                var query = HttpUtility.ParseQueryString("");
+                Boolean first = true;
                 foreach (var entry in queryParameters)
                 {
-                    query[entry.Key] = entry.Value;
+                    String symbol = "&";
+                    if (first)
+                    {
+                        symbol = "?";
+                        first = false;
+                    }
+
+                    url += symbol + entry.Key + "=" + WebUtility.UrlEncode(entry.Value);
                 }
-                url += "?" + query;
             }
             var request = new HttpRequestMessage(method, url);
 
