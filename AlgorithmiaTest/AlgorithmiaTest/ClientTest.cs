@@ -52,7 +52,6 @@ namespace AlgorithmiaTest
 		{
 			Client client = new Client("key");
 			DataDirectory dir = client.dir("test/path");
-			Assert.AreSame(dir.client, client);
 		}
 
 	}

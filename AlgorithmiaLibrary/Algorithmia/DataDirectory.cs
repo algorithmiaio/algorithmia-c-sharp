@@ -9,15 +9,15 @@ namespace Algorithmia
 {
     public class DataDirectory
     {
-        public readonly Client client;
+        private readonly Client client;
         private readonly string url;
         private readonly string path;
         private readonly string name;
         private readonly string parent;
 
-        public DataDirectory(Client c, string dataUrl)
+        public DataDirectory(Client client, string dataUrl)
         {
-            client = c;
+            this.client = client;
             path = DataUtilities.getDataPath(dataUrl, false);
             url = DataUtilities.getDataUrl(path);
             name = everythingToLastSlashReplacementRegex.Replace(path, "");
