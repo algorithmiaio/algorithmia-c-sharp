@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using System.IO;
-using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
 using System.Net.Http;
 
@@ -152,9 +151,9 @@ namespace Algorithmia
         {
             using (var stream = new MemoryStream())
             {
-                var ser = (inputObject == null) ?
-                    new DataContractJsonSerializer(typeof(object)) : new DataContractJsonSerializer(inputObject.GetType());
-                ser.WriteObject(stream, inputObject);
+                StreamWriter writer = new StreamWriter(stream);
+                writer.Write(JsonConvert.SerializeObject(inputObject));
+                writer.Flush();
                 stream.Flush();
                 stream.Position = 0;
                 return synchronousHttpCall(new HttpMethod("PATCH"), url, null, new StreamContent(stream), "application/json");
@@ -184,9 +183,9 @@ namespace Algorithmia
             {
                 using (var stream = new MemoryStream())
                 {
-                    var ser = (inputObject == null) ?
-                        new DataContractJsonSerializer(typeof(object)) : new DataContractJsonSerializer(inputObject.GetType());
-                    ser.WriteObject(stream, inputObject);
+                    StreamWriter writer = new StreamWriter(stream);
+                    writer.Write(JsonConvert.SerializeObject(inputObject));
+                    writer.Flush();
                     stream.Flush();
                     stream.Position = 0;
                     result = synchronousHttpCall(HttpMethod.Post, url, queryParameters, new StreamContent(stream), "application/json");

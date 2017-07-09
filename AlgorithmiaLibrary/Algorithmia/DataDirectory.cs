@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
-using System.Runtime.Serialization;
 
 namespace Algorithmia
 {
@@ -202,10 +201,8 @@ namespace Algorithmia
 
     }
 
-    [DataContract()]
-    class ReadAcl
+    public class ReadAcl
     {
-        [DataMember()]
         public List<string> read;
 
         public ReadAcl()
@@ -218,13 +215,10 @@ namespace Algorithmia
         }
     }
 
-    [DataContract()]
-    class CreateDataDirectory
+    public class CreateDataDirectory
     {
-        [DataMember()]
         public string name;
 
-        [DataMember()]
         public ReadAcl acl;
 
         // This need to be here for serialization
@@ -242,10 +236,8 @@ namespace Algorithmia
         }
     }
 
-    [DataContract()]
-    class UpdateDataDirectory
+    public class UpdateDataDirectory
     {
-        [DataMember()]
         public ReadAcl acl;
 
         public UpdateDataDirectory()
@@ -258,16 +250,12 @@ namespace Algorithmia
         }
     }
 
-    [DataContract()]
-    class DataDirectoryFileElement
+    public class DataDirectoryFileElement
     {
-        [DataMember()]
         public string filename;
 
-        [DataMember()]
         public string last_modified;
 
-        [DataMember()]
         public long size;
 
         public DataDirectoryFileElement()
@@ -278,10 +266,8 @@ namespace Algorithmia
         }
     }
 
-    [DataContract()]
-    class DataDirectoryDirectoryElement
+    public class DataDirectoryDirectoryElement
     {
-        [DataMember()]
         public string name;
 
         public DataDirectoryDirectoryElement()
@@ -290,16 +276,12 @@ namespace Algorithmia
         }
     }
 
-    [DataContract()]
-    class DataDirectoryContents
+    public class DataDirectoryContents
     {
-        [DataMember()]
         public List<DataDirectoryFileElement> files;
 
-        [DataMember()]
         public List<DataDirectoryDirectoryElement> folders;
 
-        [DataMember()]
         public string marker;
 
         public DataDirectoryContents()
