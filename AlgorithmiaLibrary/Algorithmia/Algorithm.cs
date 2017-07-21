@@ -13,7 +13,7 @@ namespace Algorithmia
         private readonly Client client;
         private readonly string algoUrl;
         private static Regex algoPrefixReplacementRegex = new Regex("^(algo://|/)");
-        private static Regex algoReferenceRegex = new Regex("^(\\w+/\\w+)$");
+        private static Regex algoReferenceRegex = new Regex("^(\\w+/\\w+)");
 
         private Dictionary<string, string> queryParameters;
 

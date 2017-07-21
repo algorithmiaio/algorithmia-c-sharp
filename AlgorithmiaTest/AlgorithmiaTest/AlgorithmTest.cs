@@ -36,6 +36,17 @@ namespace AlgorithmiaTest
 			Assert.AreEqual(response.result, "Hello 1");
 		}
 
+        [Test()]
+        public void checkAlgorithmCallWithVersion()
+        {
+            Client client = new Client(ALGORITHMIA_API_KEY);
+
+            Assert.AreEqual(client.algo("algo://demo/hello").pipe<String>("1").result, "Hello 1");
+            Assert.AreEqual(client.algo("algo://demo/hello/").pipe<String>("1").result, "Hello 1");
+            Assert.AreEqual(client.algo("algo://demo/hello/0.1.2").pipe<String>("1").result, "Hello 1");
+            Assert.AreEqual(client.algo("algo://demo/hello/0.1.x").pipe<String>("1").result, "Hello 1");
+        }
+
 		[Test()]
 		public void checkAlgorithmNullInput()
 		{
