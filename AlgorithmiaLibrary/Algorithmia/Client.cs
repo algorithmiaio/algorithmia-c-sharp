@@ -36,6 +36,9 @@ namespace Algorithmia
         /// </summary>
         public readonly string apiAddress;
 
+        private readonly string CLIENT_VERSION = string.Format("algorithmia-c-sharp/{0}",
+                                                               System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Algorithmia.Client"/> class.
         /// </summary>
@@ -114,6 +117,7 @@ namespace Algorithmia
             {
                 request.Headers.TryAddWithoutValidation("Authorization", apiKey);
             }
+            request.Headers.TryAddWithoutValidation("User-Agent", CLIENT_VERSION);
 
             if (content != null)
             {
