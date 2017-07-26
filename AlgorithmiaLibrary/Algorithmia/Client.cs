@@ -112,7 +112,7 @@ namespace Algorithmia
 
             if (!string.IsNullOrEmpty(apiKey))
             {
-                request.Headers.Add("Authorization", apiKey);
+                request.Headers.TryAddWithoutValidation("Authorization", apiKey);
             }
 
             if (content != null)
