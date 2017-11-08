@@ -43,7 +43,7 @@ namespace AlgorithmiaTest
 
             Assert.AreEqual(client.algo("algo://demo/hello").pipe<String>("1").result, "Hello 1");
             Assert.AreEqual(client.algo("algo://demo/hello/").pipe<String>("1").result, "Hello 1");
-            Assert.AreEqual(client.algo("algo://demo/hello/0.1.2").pipe<String>("1").result, "Hello 1");
+            Assert.AreEqual(client.algo("algo://demo/hello/0.1.0").pipe<String>("1").result, "Hello 1");
             Assert.AreEqual(client.algo("algo://demo/hello/0.1.x").pipe<String>("1").result, "Hello 1");
         }
 
