@@ -19,14 +19,13 @@ namespace Algorithmia
         public double duration;
 
 
+        /// <summary>
+        /// If this algorithm was called with the timing option enabled, this stores that timing data.
+        /// </summary>
+        public IDictionary<string, double> timing;
+
         internal ResponseMetadata()
         {
-        }
-
-        internal ResponseMetadata(string ct, double d)
-        {
-            content_type = ct;
-            duration = d;
         }
     }
 

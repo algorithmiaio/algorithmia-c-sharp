@@ -79,6 +79,20 @@ namespace AlgorithmiaTest
 			AlgorithmResponse response = algorithm.pipe<Object>(120);
 		}
 
+        [Test()]
+        public void checkTiming()
+        {
+            Client client = new Client(ALGORITHMIA_API_KEY);
+            Algorithm algorithm = client.algo("algo://testing/Sleep");
+            algorithm.setOptions(options: new Dictionary<string, string>() { { "timing", "1"} });
+            AlgorithmResponse response = algorithm.pipe<Object>(1);
+            Assert.IsNotNull(response.metadata.timing);
+            Assert.True(response.metadata.timing.Keys.Contains("running"));
+            Assert.True(response.metadata.timing.Keys.Contains("total"));
+            Assert.GreaterOrEqual(response.metadata.timing["running"], 1);
+            Assert.GreaterOrEqual(response.metadata.timing["total"], 1);
+        }
+
 		[Test()]
 		[ExpectedException("Algorithmia.AlgorithmException", ExpectedMessage = "Algorithm call failed - reason: authorization required")]
 		public void runHelloWorldUnauthenticated()
