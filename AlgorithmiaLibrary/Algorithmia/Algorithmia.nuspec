@@ -3,14 +3,14 @@
   <metadata>
     <id>Algorithmia.Client</id>
     <version>0.0.5</version>
-    <title>.NET Client for Algorithmia Algorithms and Data API Edit</title>
+    <title>.NET Client for Algorithmia Algorithms and Data API</title>
     <authors>EdBlankenship,JamesAthappilly,Algorithmia</authors>
     <owners>EdBlankenship,JamesAthappilly,Algorithmia</owners>
     <licenseUrl>https://github.com/algorithmiaio/algorithmia-c-sharp/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/algorithmiaio/algorithmia-c-sharp</projectUrl>
     <iconUrl>https://cdn.algorithmia.com/versioned/images/logos/png/f4f0b308120f0feafe12581cf9f7cab9-bintreePurple.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>.NET Client for Algorithmia Algorithms and Data API Edit</description>
+    <description>.NET Client for Algorithmia Algorithms and Data API</description>
     <copyright>Copyright © 2017 by Algorithmia Inc.</copyright>
     <tags>Algorithmia, Algorithms, Machine Learning, Artificial Service, NLP, Sentiment Analysis, Microservices, Serverless</tags>
     <dependencies>
