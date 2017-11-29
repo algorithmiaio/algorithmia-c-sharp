@@ -92,6 +92,25 @@ namespace Algorithmia
         }
 
         /// <summary>
+        /// Call the algorithm with the <c>input</c> converted to a json object first. If parsing into a valid json object fails,
+        /// we call <c>pipe</c> with the original <c>input</c>.
+        /// </summary>
+        /// <returns>An AlgorithmResponse with the result of the call.</returns>
+        /// <param name="input">The input which which will be converted to json and sent as the input to the algorithm call.</param>
+        /// <typeparam name="T">The type of the <c>result</c> object in the <c>AlgorithmResponse</c>. If the output is Raw, this is ignored and a byte[] array is used instead.</typeparam>
+        public AlgorithmResponse pipeJson<T>(String input)
+        {
+            try
+            {
+                return pipe<T>(JsonConvert.DeserializeObject(input));
+            }
+            catch (Newtonsoft.Json.JsonReaderException)
+            {
+                return pipe<T>(input);
+            }
+        }
+
+        /// <summary>
         /// Call the algorithm with the <c>input</c>.
         /// </summary>
         /// <returns>An AlgorithmResponse with the result of the call.</returns>
