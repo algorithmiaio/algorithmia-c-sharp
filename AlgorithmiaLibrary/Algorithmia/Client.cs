@@ -95,6 +95,8 @@ namespace Algorithmia
                                                         HttpContent content, string contentType)
         {
             var client = new HttpClient { BaseAddress = new Uri(apiAddress) };
+            // Default to a 1 day HTTP connection timeout
+            client.Timeout = new TimeSpan(1 /*days*/, 0 /*hours*/, 0 /*minutes*/, 0 /*seconds*/);
 
             if (queryParameters != null && queryParameters.Count > 0)
             {
