@@ -20,6 +20,7 @@
     <PackageTags>Algorithmia, Algorithms, Machine Learning, Artificial Service, NLP, Sentiment Analysis, Microservices, Serverless</PackageTags>
     <RepositoryType>Git</RepositoryType>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageId>Algorithmia.Client</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
