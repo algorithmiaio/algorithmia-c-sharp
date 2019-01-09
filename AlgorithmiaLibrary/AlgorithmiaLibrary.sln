@@ -1,7 +1,8 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithmia", "Algorithmia\Algorithmia.csproj", "{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmia", "Algorithmia\Algorithmia.csproj", "{28BD4260-0003-4B9A-A5D8-0703E6705158}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,9 +10,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28BD4260-0003-4B9A-A5D8-0703E6705158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28BD4260-0003-4B9A-A5D8-0703E6705158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28BD4260-0003-4B9A-A5D8-0703E6705158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28BD4260-0003-4B9A-A5D8-0703E6705158}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A37B17EB-EDA4-4234-93E8-C76D80C42FFD}
 	EndGlobalSection
 EndGlobal

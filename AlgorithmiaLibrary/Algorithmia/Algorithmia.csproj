@@ -1,57 +1,42 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{734B6CF9-458D-4C0E-9249-2CACBD2C68BC}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Algorithmia</RootNamespace>
-    <AssemblyName>Algorithmia</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Version>0.0.0</Version>
+    <AssemblyVersion>0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0</FileVersion>
+    <PackageVersion>0.0.0</PackageVersion>
+    <InformationalVersion>0.0.0</InformationalVersion>
+    <Authors>Algorithmia,EdBlankenship,JamesAthappilly</Authors>
+    <title>.NET Client for Algorithmia Algorithms and Data API</title>
+    <Company>Algorithmia, Inc.</Company>
+    <Description>.NET Client for Algorithmia Algorithms and Data API</Description>
+    <Copyright>Copyright © 2019 by Algorithmia Inc.</Copyright>
+    <PackageLicenseUrl>https://github.com/algorithmiaio/algorithmia-c-sharp/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://algorithmia.com/developers/clients/c_sharp_net/</PackageProjectUrl>
+    <PackageIconUrl>https://cdn.algorithmia.com/versioned/images/logos/png/f4f0b308120f0feafe12581cf9f7cab9-bintreePurple.png</PackageIconUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/algorithmiaio/algorithmia-c-sharp</RepositoryUrl>
+    <PackageTags>Algorithmia, Algorithms, Machine Learning, Artificial Service, NLP, Sentiment Analysis, Microservices, Serverless</PackageTags>
+    <RepositoryType>Git</RepositoryType>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageId>Algorithmia.Client</PackageId>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\Algorithmia.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\Algorithmia.xml</DocumentationFile>
   </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Client.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Algorithm.cs" />
-    <Compile Include="AlgorithmOutputType.cs" />
-    <Compile Include="ReadDataAcl.cs" />
-    <Compile Include="DataDirectory.cs" />
-    <Compile Include="DataUtilities.cs" />
-    <Compile Include="DataFile.cs" />
-    <Compile Include="AlgorithmResponse.cs" />
-    <Compile Include="AlgorithmiaException.cs" />
-    <Compile Include="DataResponse.cs" />
+    <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Algorithmia.nuspec" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+
 </Project>
