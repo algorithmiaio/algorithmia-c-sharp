@@ -17,7 +17,7 @@ To get started you will want to initialize an Algorithmia Client with your [API 
 
 Next, you can specify an algorithm you would like to run and then process the algorithm's response.  In this case we are going to call the [Hello demo algorithm](https://algorithmia.com/algorithms/demo/hello).
 
-     var algo = new Algorithmia.Algorithm(client, "algo://demo/hello");
+     var algo = client.algo("algo://demo/hello");
      var response = algo.pipe<string>("World");
 
      Console.WriteLine(response.result);
