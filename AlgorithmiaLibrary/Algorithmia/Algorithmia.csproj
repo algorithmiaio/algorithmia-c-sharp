@@ -24,11 +24,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\edbla\Source\Repos\algorithmia-c-sharp\AlgorithmiaLibrary\Algorithmia\Algorithmia.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Algorithmia.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Users\edbla\Source\Repos\algorithmia-c-sharp\AlgorithmiaLibrary\Algorithmia\Algorithmia.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Algorithmia.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
