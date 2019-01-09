@@ -6,6 +6,7 @@
     <AssemblyVersion>0.0.0</AssemblyVersion>
     <FileVersion>0.0.0</FileVersion>
     <PackageVersion>0.0.0</PackageVersion>
+    <InformationalVersion>0.0.0</InformationalVersion>
     <Authors>Algorithmia,EdBlankenship,JamesAthappilly</Authors>
     <title>.NET Client for Algorithmia Algorithms and Data API</title>
     <Company>Algorithmia, Inc.</Company>
