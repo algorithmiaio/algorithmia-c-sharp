@@ -44,9 +44,9 @@ namespace Algorithmia
         /// </summary>
         /// <param name="key">The API key for the user calling the algorithm.</param>
         /// <param name="address">Optional API address. When it's not specified, we use the public marketplace endpoint.</param>
-        public Client(string key, string address = null)
+        public Client(string key = null, string address = null)
         {
-            apiKey = key;
+            apiKey = getApiKey(key);
             apiAddress = getApiAddress(address);
         }
 
@@ -89,6 +89,16 @@ namespace Algorithmia
 
             var envApiAddress = Environment.GetEnvironmentVariable("ALGORITHMIA_API");
             return envApiAddress ?? "https://api.algorithmia.com";
+        }
+
+        private string getApiKey(string key)
+        {
+            if (key != null)
+            {
+                return key;
+            }
+            var envApiKey = Environment.GetEnvironmentVariable("ALGORITHMIA_API_KEY");
+            return envApiKey;
         }
 
         private HttpResponseAndData synchronousHttpCall(HttpMethod method, string url, Dictionary<string, string> queryParameters,
